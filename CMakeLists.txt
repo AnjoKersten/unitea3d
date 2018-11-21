@@ -1,15 +1,15 @@
-source# CMake entry point
+# CMake entry point
 cmake_minimum_required (VERSION 2.6)
 project (Unitea3D)
 
 find_package(OpenGL REQUIRED)
 
 
-if( CMAKE_BINARY_DIR STREQUAL CMAKE_SOURCE_DIR )
+if( CMAKE_BINARY_DIR STREQUAL CMAKE_src_DIR )
 	message( FATAL_ERROR "Please select another Build Directory ! (and give it a clever name, like 'build')" )
 endif()
-if( CMAKE_SOURCE_DIR MATCHES " " )
-	message( "Your Source Directory contains spaces. If you experience problems when compiling, this can be the cause." )
+if( CMAKE_src_DIR MATCHES " " )
+	message( "Your src Directory contains spaces. If you experience problems when compiling, this can be the cause." )
 endif()
 if( CMAKE_BINARY_DIR MATCHES " " )
 	message( "Your Build Directory contains spaces. If you experience problems when compiling, this can be the cause." )
@@ -31,7 +31,7 @@ endif(UNIX)
 
 if(WIN32)
 	# Create a group for Visual Studio
-	SOURCE_GROUP(source REGULAR_EXPRESSION ".*/source/.*" )
+	SOURCE_GROUP(src REGULAR_EXPRESSION ".*/src/.*" )
 	# suppress pedantic warnings
 	add_definitions( "/W1 /D_CRT_SECURE_NO_WARNINGS /wd4514 /nologo" )
 endif(WIN32)
@@ -39,14 +39,14 @@ endif(WIN32)
 include_directories(
 	external/glfw-3.0.3/include/GLFW/
 	external/glm-0.9.8.4/
-	external/glew-1.9.0/include/
+	external/glad/include/glad/
 	.
 )
 
 set(ALL_GRAPHICS_LIBS
 	${OPENGL_LIBRARY}
 	GLFW_303
-	GLEW_190
+	GLAD
 )
 
 add_definitions(
@@ -57,14 +57,14 @@ add_definitions(
 	-D_CRT_SECURE_NO_WARNINGS
 )
 
-# source (libcommon.a)
-add_library(source
-	source/camera.h
-	source/camera.cpp
-	source/renderer.h
-	source/renderer.cpp
-	source/sprite.h
-	source/sprite.cpp
+# src (libcommon.a)
+add_library(src
+	src/camera.cpp
+	src/camera.h
+	src/renderer.cpp
+	src/renderer.h
+	src/shader.h
+	
 )
 
 # Demo
@@ -72,7 +72,7 @@ add_executable(demo
 	demo/demo.cpp
 )
 target_link_libraries(demo
-	source
+	src
 	${ALL_GRAPHICS_LIBS}
 )
 # Copy assets and shaders to the build directory
@@ -82,6 +82,6 @@ file(
 	DESTINATION ${CMAKE_BINARY_DIR}
 )
 file(
-	COPY common/shaders
+	COPY src/shaders
 	DESTINATION ${CMAKE_BINARY_DIR}
 )
