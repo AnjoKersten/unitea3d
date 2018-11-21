@@ -66,6 +66,8 @@ add_library(src
 	src/shader.h
 	src/stb_image.cpp
 	src/stb_image.h
+	src/texture.cpp
+	src/texture.h
 
 )
 

@@ -1,0 +1,7 @@
+D:/_School/2018-2019/Periode 2 + 3/Source/unitea3d/build/CMakeFiles/src.dir
+D:/_School/2018-2019/Periode 2 + 3/Source/unitea3d/build/CMakeFiles/demo.dir
+D:/_School/2018-2019/Periode 2 + 3/Source/unitea3d/build/CMakeFiles/ALL_BUILD.dir
+D:/_School/2018-2019/Periode 2 + 3/Source/unitea3d/build/CMakeFiles/ZERO_CHECK.dir
+D:/_School/2018-2019/Periode 2 + 3/Source/unitea3d/build/external/CMakeFiles/GLAD.dir
+D:/_School/2018-2019/Periode 2 + 3/Source/unitea3d/build/external/glfw-3.0.3/CMakeFiles/ALL_BUILD.dir
+D:/_School/2018-2019/Periode 2 + 3/Source/unitea3d/build/external/glfw-3.0.3/src/CMakeFiles/GLFW_303.dir

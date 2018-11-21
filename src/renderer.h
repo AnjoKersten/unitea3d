@@ -5,6 +5,10 @@
 #include <glfw3.h>
 #include <iostream>
 
+#include "src/stb_image.h"
+#include "src/shader.h"
+#include "src/texture.h"
+
 class Renderer
 {
 public:
@@ -13,6 +17,9 @@ public:
 	GLFWwindow* window;
 
 	void processInput(GLFWwindow* window);
+
+	void CreateRectangle();
+	void DrawRectangle(Texture texture);
 
 	void CreateTriangle();
 	void DrawTriangle();

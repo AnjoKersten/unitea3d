@@ -11,11 +11,14 @@ int main()
 {
 	Renderer renderer;
 	Shader demoShader("../src/shaders/sample.vs", "../src/shaders/sample.fs");
+	
+	Texture sampleTex;
+	sampleTex.SetPath("assets/brickTex.jpg");
 
-	int width, height, nrChannels;
-	unsigned char *data = stbi_load("brickTex.jpg", &width, &height, &nrChannels, 0);
-
-	renderer.CreateTriangle();
+	
+	renderer.CreateRectangle();
+	//renderer.CreateTriangle();
+	
 
 	while (!glfwWindowShouldClose(renderer.window))
 	{
@@ -23,7 +26,9 @@ int main()
 		renderer.processInput(renderer.window);
 
 		demoShader.use();
-		renderer.DrawTriangle();
+
+		renderer.DrawRectangle(sampleTex);
+		//renderer.DrawTriangle();
 		
 		glfwSwapBuffers(renderer.window);
 		glfwPollEvents();

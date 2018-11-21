@@ -42,19 +42,29 @@ void Renderer::framebuffer_size_callback(GLFWwindow* window, int width, int heig
 }
 
 
-void Renderer::DrawTriangle() 
+void Renderer::CreateRectangle() 
 {
+	float vertices[] = {
+		// positions          // colors           // texture coords
+		 0.5f,  0.5f, 0.0f,   1.0f, 0.0f, 0.0f,   1.0f, 1.0f,   // top right
+		 0.5f, -0.5f, 0.0f,   0.0f, 1.0f, 0.0f,   1.0f, 0.0f,   // bottom right
+		-0.5f, -0.5f, 0.0f,   0.0f, 0.0f, 1.0f,   0.0f, 0.0f,   // bottom left
+		-0.5f,  0.5f, 0.0f,   1.0f, 1.0f, 0.0f,   0.0f, 1.0f    // top left 
+	};
 
-	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT);
-
-
-	glBindVertexArray(VAO);
-	glDrawArrays(GL_TRIANGLES, 0, 6); 
-
+	glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+	glEnableVertexAttribArray(2);
 }
 
-void Renderer::CreateTriangle() 
+void Renderer::DrawRectangle(Texture texture)
+{
+	glBindTexture(GL_TEXTURE_2D, texture.textureid);
+	glBindVertexArray(VAO);
+	glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+}
+
+
+void Renderer::CreateTriangle()
 {
 	float vertices[] = {
 		// positions         // colors
@@ -63,7 +73,7 @@ void Renderer::CreateTriangle()
 		 0.0f,  0.5f, 0.0f,  0.0f, 0.0f, 1.0f   // top 
 	};
 
-	
+
 	glGenVertexArrays(1, &VAO);
 	glGenBuffers(1, &VBO);
 
@@ -83,4 +93,16 @@ void Renderer::CreateTriangle()
 
 
 	glBindVertexArray(0);
+}
+
+void Renderer::DrawTriangle() 
+{
+
+	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT);
+
+
+	glBindVertexArray(VAO);
+	glDrawArrays(GL_TRIANGLES, 0, 6); 
+
 }
