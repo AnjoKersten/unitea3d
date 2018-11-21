@@ -12,33 +12,7 @@ class Shader
 {
 public:
 
-	/*
-	const char *vertexShaderSource = "#version 330 core\n"
-		"layout (location = 0) in vec3 aPos;\n"
-		"layout (location = 1) in vec3 aColor;\n"
-		"out vec3 ourColor;\n"
-		"void main()\n"
-		"{\n"
-		"   gl_Position = vec4(aPos, 1.0);\n"
-		"   ourColor = aColor;\n"
-		"}\0";
-
-	const char *fragmentShaderSource = "#version 330 core\n"
-		"out vec4 FragColor;\n"
-		"in vec3 ourColor;\n"
-		"void main()\n"
-		"{\n"
-		"   FragColor = vec4(ourColor, 1.0f);\n"
-		"}\n\0";
-
-
-		*/
-
-
-
 	unsigned int ID;
-	// constructor generates the shader on the fly
-	// ------------------------------------------------------------------------
 	Shader(const char* vertexPath, const char* fragmentPath)
 	{
 		// 1. retrieve the vertex/fragment source code from filePath
@@ -76,24 +50,14 @@ public:
 		// vertex shader
 		vertex = glCreateShader(GL_VERTEX_SHADER);
 
-		///////////////////////////////////////////////////////////////////////
 		glShaderSource(vertex, 1, &vShaderCode, NULL);
-		//glShaderSource(vertex, 1, &vertexShaderSource, NULL);
-		///////////////////////////////////////////////////////////////////////
-
 		glCompileShader(vertex);
 		checkCompileErrors(vertex, "VERTEX");
 
 
 		// fragment Shader
 		fragment = glCreateShader(GL_FRAGMENT_SHADER);
-
-		///////////////////////////////////////////////////////////////////
 		glShaderSource(fragment, 1, &fShaderCode, NULL);
-		//glShaderSource(fragment, 1, &fragmentShaderSource, NULL);
-		///////////////////////////////////////////////////////////////////
-
-
 		glCompileShader(fragment);
 		checkCompileErrors(fragment, "FRAGMENT");
 

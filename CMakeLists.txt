@@ -64,7 +64,9 @@ add_library(src
 	src/renderer.cpp
 	src/renderer.h
 	src/shader.h
-	
+	src/stb_image.cpp
+	src/stb_image.h
+
 )
 
 # Demo
