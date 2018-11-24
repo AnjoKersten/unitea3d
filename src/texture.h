@@ -11,15 +11,14 @@
 class Texture
 {
 public:
-	Texture();
+	Texture(const char *filePath);
 	virtual ~Texture();
-	void SetPath(char *texturePath);
+	void UpdateTexture();
 	unsigned int textureid;
 
 private:
 	int width, height, nrChannels;
 	unsigned char *data;
-	char imagePath = NULL;
 
 };
 

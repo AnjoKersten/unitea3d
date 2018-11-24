@@ -1,6 +1,6 @@
 #include "texture.h" 
  
-Texture::Texture()
+Texture::Texture(const char *filePath)
 {
 	glGenTextures(1, &textureid);
 	glBindTexture(GL_TEXTURE_2D, textureid);
@@ -9,27 +9,30 @@ Texture::Texture()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
 	// load and generate the texture
-	int width, height, nrChannels;
-	data = stbi_load(&imagePath, &width, &height, &nrChannels, 0);
+	data = stbi_load(filePath, &width, &height, &nrChannels, 0);
 	if (data)
 	{
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 		glGenerateMipmap(GL_TEXTURE_2D);
+		std::cout << textureid << std::endl;
 	}
 	else
 	{
 		std::cout << "Failed to load texture" << std::endl;
 	}
+
+	stbi_image_free(data);
 	
 }
  
 Texture::~Texture()
 {
-	stbi_image_free(data);
+	
 }
 
-void Texture::SetPath(char *texturePath)
+void Texture::UpdateTexture() 
 {
-	imagePath = *texturePath;
+	
 }

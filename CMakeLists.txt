@@ -68,6 +68,7 @@ add_library(src
 	src/stb_image.h
 	src/texture.cpp
 	src/texture.h
+	src/u3dconfig.h
 
 )
 
