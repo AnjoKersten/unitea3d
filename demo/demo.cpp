@@ -4,12 +4,20 @@
 #include "src/renderer.h"
 #include "src/shader.h"
 #include "src/stb_image.h"
+#include "src/vectorx.h"
 
 int main()
 {
 	Renderer renderer;
 	Shader demoShader("../src/shaders/sample.vs", "../src/shaders/sample.fs");
 	
+	Vector2 vec2 = Vector2(10, 20);
+	Vector3 vec3 = Vector3(42, 42, 42);
+	Vector3d vec3d = Vector3d(2.22, 2.22, 2.22);
+
+	vec2.display();
+	vec3.display();
+	vec3d.display();
 	
 	renderer.CreateRectangle();
 	//renderer.CreateTriangle();

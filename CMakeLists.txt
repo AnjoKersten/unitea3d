@@ -59,17 +59,17 @@ add_definitions(
 
 # src (libcommon.a)
 add_library(src
-	src/camera.cpp
-	src/camera.h
+	src/u3dconfig.h
+	src/vectorx.h
+	src/stb_image.cpp
+	src/stb_image.h
 	src/renderer.cpp
 	src/renderer.h
 	src/shader.h
-	src/stb_image.cpp
-	src/stb_image.h
 	src/texture.cpp
 	src/texture.h
-	src/u3dconfig.h
-
+	src/camera.cpp
+	src/camera.h
 )
 
 # Demo
