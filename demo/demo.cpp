@@ -14,10 +14,14 @@ int main()
 	Vector2 vec2 = Vector2(10, 20);
 	Vector3 vec3 = Vector3(42, 42, 42);
 	Vector3d vec3d = Vector3d(2.22, 2.22, 2.22);
+	Vector3 newvec;
+	newvec.Add(vec3);
+	float sqrtVec = vec3.GetLength();
 
 	vec2.display();
 	vec3.display();
 	vec3d.display();
+	newvec.display();
 	
 	renderer.CreateRectangle();
 	//renderer.CreateTriangle();
