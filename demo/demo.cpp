@@ -9,27 +9,12 @@
 int main()
 {
 	Renderer renderer;
-	Shader demoShader("../src/shaders/sample.vs", "../src/shaders/sample.fs");
-	
-	Vector2 vec2 = Vector2(10, 20);
-	Vector3 vec3 = Vector3(42, 42, 42);
-	Vector3d vec3d = Vector3d(2.22, 2.22, 2.22);
-	Vector3 newvec;
-	newvec.Add(vec3);
-	float sqrtVec = vec3.GetLength();
+	Shader demoShader("../src/shaders/transformShader.vs", "../src/shaders/sample.fs");
 
-	vec2.display();
-	vec3.display();
-	vec3d.display();
-	newvec.display();
-	
-	renderer.CreateRectangle();
-	//renderer.CreateTriangle();
-
+	renderer.CreateCubes(demoShader);
 
 	// Texture 1
 	Texture sampleTex("assets/container.png");
-
 	// Texture 2
 	Texture awesomeFace("assets/awesomeface.png");
 	
@@ -42,21 +27,43 @@ int main()
 	while (!glfwWindowShouldClose(renderer.window))
 	{
 		
-		
+		// ---------- Input ----------
 		renderer.processInput(renderer.window);
 
-		demoShader.use();
 
-		//sampleTex.UpdateTexture();
-		//awesomeFace.UpdateTexture();
+		// ---------- Render ----------
+		// Clear window
+		renderer.ClearWindow();
+
+		// bind textures on corresponding texture units
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, sampleTex.textureid);
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, awesomeFace.textureid);
 
-		renderer.DrawRectangle();
-		renderer.DrawRectangle();
-		//renderer.DrawTriangle();
+		// Activate Shader
+		demoShader.use();
+
+		// Create Transformations
+		glm::mat4 model;
+		glm::mat4 view;
+		glm::mat4 projection;
+		
+		//model = glm::rotate(model, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
+		
+		projection = glm::perspective(glm::radians(45.0f), (float)SWIDTH / (float)SHEIGHT, 0.1f, 100.0f);
+		view = glm::translate(view, glm::vec3(0.0f, 0.0f, -3.0f));
+
+		renderer.DrawCubes(demoShader);
+
+		// retrieve the matrix uniform locations
+		unsigned int modelLoc = glGetUniformLocation(demoShader.ID, "model");
+		unsigned int viewLoc = glGetUniformLocation(demoShader.ID, "view");
+
+		demoShader.setMat4("projection", projection);
+		demoShader.setMat4("view", view);
+
+		
 		
 		glfwSwapBuffers(renderer.window);
 		glfwPollEvents();

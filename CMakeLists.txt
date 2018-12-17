@@ -70,6 +70,8 @@ add_library(src
 	src/texture.h
 	src/camera.cpp
 	src/camera.h
+	src/transform.cpp
+	src/transform.h
 )
 
 # Demo
