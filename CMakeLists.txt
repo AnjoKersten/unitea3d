@@ -72,6 +72,12 @@ add_library(src
 	src/camera.h
 	src/transform.cpp
 	src/transform.h
+	src/empty_classes/gameobject.cpp
+	src/empty_classes/gameobject.h
+	src/empty_classes/objectloader.cpp
+	src/empty_classes/objectloader.h
+	src/empty_classes/spriteloader.cpp
+	src/empty_classes/spriteloader.h
 )
 
 # Demo

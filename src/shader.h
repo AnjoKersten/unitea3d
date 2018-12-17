@@ -1,3 +1,9 @@
+/**
+* @file shader.h
+*
+* @brief The Shader header file
+*/
+
 #ifndef SHADER_H
 #define SHADER_H
 
@@ -14,11 +20,25 @@
 
 #include "src/vectorx.h"
 
+/**
+ * @brief Header-only Shader Class manages the vertex and fragment shaders of objects
+ */
 class Shader
 {
 public:
-
+	/**
+	 * @brief A unique ID every texture has
+	 */
 	unsigned int ID;
+
+	/**
+	 * @brief Default Shader constructor
+	 * @param vertexPath
+	 * Path to desired VertexShader file
+	 *
+	 * @param fragmentPath
+	 * Path to desired FragmentShader file
+	 */
 	Shader(const char* vertexPath, const char* fragmentPath)
 	{
 		// 1. retrieve the vertex/fragment source code from filePath
