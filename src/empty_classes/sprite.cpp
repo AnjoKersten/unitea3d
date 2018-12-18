@@ -1,9 +1,9 @@
 #include "sprite.h"
 
-SpriteLoader::Sprite(){
+Sprite::Sprite(){
 
 }
 
-SpriteLoader::~Sprite(){
+Sprite::~Sprite(){
 
 }

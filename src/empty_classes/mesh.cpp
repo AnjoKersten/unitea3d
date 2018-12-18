@@ -1,9 +1,9 @@
 #include "mesh.h"
 
-ObjectLoader::Mesh(){
+Mesh::Mesh(){
 
 }
 
-ObjectLoader::~Mesh(){
+Mesh::~Mesh(){
 
 }

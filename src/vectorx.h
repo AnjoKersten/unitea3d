@@ -86,10 +86,10 @@ public:
 	 * The y position of the Vector2
 	 */
 	VectorX_t<T>(T xx, T yy) { x = xx; y = yy; };
-	
 
 
-	
+
+
 
 
 	// ---------- Getters and Setters ----------
@@ -97,7 +97,7 @@ public:
 	/**
 	* @brief Set values of VectorX_t<T> to input values
 	*/
-	void Set(const T &xx, const T &yy, const T &zz) 
+	void Set(const T &xx, const T &yy, const T &zz)
 	{
 		x = xx;
 		y = yy;
@@ -122,7 +122,7 @@ public:
 	* @return x
 	* returns the x value of VectorX_t<T>
 	*/
-	T GetX() const { return x }
+	T GetX() const { return x; }
 
 	/**
 	* @brief Get y value from VectorX_t<T>
@@ -130,7 +130,7 @@ public:
 	* @return y
 	* returns the y value of VectorX_t<T>
 	*/
-	T GetY() const { return y }
+	T GetY() const { return y; }
 
 	/**
 	* @brief Get z value from VectorX_t<T>
@@ -138,7 +138,7 @@ public:
 	* @return z
 	* returns the z value of VectorX_t<T>
 	*/
-	T GetZ() const { return z }
+	T GetZ() const { return z; }
 
 
 	// ---------- Calculations ----------
@@ -146,7 +146,7 @@ public:
 	/**
 	* @brief Add other VectorX_t<T> to this VectorX_t<T>
 	*/
-	void Add(const VectorX_t otherVec) 
+	void Add(const VectorX_t otherVec)
 	{
 		x += otherVec.x;
 		y += otherVec.y;
@@ -159,7 +159,7 @@ public:
 	* @return VectorX_t(newX, newY, newZ)
 	* returns the two VectorX_t<T> as one new VectorX_t<T>
 	*/
-	T Add(const VectorX_t vec1, const VectorX_t vec2) 
+	T Add(const VectorX_t vec1, const VectorX_t vec2)
 	{
 		T newX = vec1.x + vec2.x;
 		T newY = vec1.y + vec2.y;
@@ -252,7 +252,7 @@ public:
 	*/
 	T GetAngleDeg()
 	{
-		return (GetAngle() * RAD_TO_DEG)
+		return (GetAngle() * RAD_TO_DEG);
 	}
 
 	/**
@@ -272,7 +272,7 @@ public:
 	}
 
 	/**
-	* @brief Get the angle between this VectorX_t<T> and other VectorX_t<T> and convert to DEGREES 
+	* @brief Get the angle between this VectorX_t<T> and other VectorX_t<T> and convert to DEGREES
 	*
 	* @return atan2(y, x)
 	* returns the angle between this VectorX_t<T> and other VectorX_t<T> in DEGREES
@@ -324,7 +324,7 @@ public:
 	/**
 	* @brief Normalize this VectorX_t<T>
 	*/
-	void VectorX_t::Normalize()
+	void Normalize()
 	{
 		T l = GetLength();
 		if (l != 0)
