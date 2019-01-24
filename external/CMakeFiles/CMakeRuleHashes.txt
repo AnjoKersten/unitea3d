@@ -1,0 +1,11 @@
+# Hashes of file build rules.
+6536e13d9c3e2d178230ea9765280e2f assimp-3.3.1/CMakeFiles/uninstall
+bd91ab59a7b7b6df321994b3b19723dc assimp-3.3.1/test/CMakeFiles/gtest
+971711995d287d246e00afe786fcb51a assimp-3.3.1/test/CMakeFiles/gtest-complete
+459519b6ddd02f2c1ecdfe70d66795ae assimp-3.3.1/test/gtest/src/gtest-stamp/gtest-build
+1cb7c48cba68fa75466822d80ed0a335 assimp-3.3.1/test/gtest/src/gtest-stamp/gtest-configure
+3508ca7d613cce1c357e93e54a123795 assimp-3.3.1/test/gtest/src/gtest-stamp/gtest-download
+e1d3afe8730eb8733f98f1adc55d5182 assimp-3.3.1/test/gtest/src/gtest-stamp/gtest-install
+05857465aa4afc1eccd7cc2ec5a5b4e8 assimp-3.3.1/test/gtest/src/gtest-stamp/gtest-mkdir
+854cdeecb35dff3514887d2885577293 assimp-3.3.1/test/gtest/src/gtest-stamp/gtest-patch
+a041affa1dbd980e66cb66e007e9e884 assimp-3.3.1/test/gtest/src/gtest-stamp/gtest-update
