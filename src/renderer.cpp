@@ -1,5 +1,5 @@
-#include "renderer.h" 
- 
+#include "renderer.h"
+
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height);
 
@@ -14,15 +14,16 @@ Renderer::Renderer()
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // uncomment this statement to fix compilation on OS X
 	#endif
 
-	if (FULLSCREEN) 
+	if (FULLSCREEN)
 	{
 		window = glfwCreateWindow(SWIDTH, SHEIGHT, WINDOWNAME, glfwGetPrimaryMonitor(), NULL);
 	}
 	else
 	{
 		window = glfwCreateWindow(SWIDTH, SHEIGHT, WINDOWNAME, NULL, NULL);
+
 	}
-	
+
 
 
 	if (window == NULL)
@@ -39,7 +40,7 @@ Renderer::Renderer()
 	}
 
 }
- 
+
 Renderer::~Renderer()
 {
 
@@ -110,7 +111,7 @@ void Renderer::CreateCubes(Shader usedShader)
 	glGenBuffers(1, &VBO);
 
 	glBindVertexArray(VAO);
-	
+
 	glBindBuffer(GL_ARRAY_BUFFER, VBO);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
@@ -152,14 +153,14 @@ void Renderer::DrawCubes(Shader usedShader)
 	}
 }
 
-void Renderer::CreateRectangle() 
+void Renderer::CreateRectangle()
 {
 	float vertices[] = {
 		// positions          // texture coords
 		 0.5f,  0.5f, 0.0f,   1.0f, 1.0f, // top right
 		 0.5f, -0.5f, 0.0f,   1.0f, 0.0f, // bottom right
 		-0.5f, -0.5f, 0.0f,   0.0f, 0.0f, // bottom left
-		-0.5f,  0.5f, 0.0f,   0.0f, 1.0f  // top left 
+		-0.5f,  0.5f, 0.0f,   0.0f, 1.0f  // top left
 	};
 	unsigned int indices[] = {
 		0, 1, 3, // first triangle
@@ -223,7 +224,7 @@ void Renderer::CreateTriangle()
 	glBindVertexArray(0);
 }
 
-void Renderer::DrawTriangle() 
+void Renderer::DrawTriangle()
 {
 
 	glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
@@ -231,7 +232,7 @@ void Renderer::DrawTriangle()
 
 
 	glBindVertexArray(VAO);
-	glDrawArrays(GL_TRIANGLES, 0, 6); 
+	glDrawArrays(GL_TRIANGLES, 0, 6);
 
 }
 

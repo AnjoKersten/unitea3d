@@ -40,6 +40,7 @@ include_directories(
 	external/glfw-3.0.3/include/GLFW/
 	external/glm-0.9.8.4/
 	external/glad/include/glad/
+	external/assimp/include/
 	.
 )
 
@@ -81,6 +82,7 @@ add_executable(demo
 target_link_libraries(demo
 	src
 	${ALL_GRAPHICS_LIBS}
+	assimp
 )
 # Copy assets and shaders to the build directory
 # (In Visual Studio, copy these directories to either 'Release' or 'Build')

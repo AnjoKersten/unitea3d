@@ -18,7 +18,7 @@
 #define SHEIGHT 600
 
 /** @brief Fullscreen: OFF = 0 | ON = 1 */
-#define FULLSCREEN 0
+#define FULLSCREEN 1
 
 /** @brief Name of created window */
 #define WINDOWNAME "Unitea3D"
