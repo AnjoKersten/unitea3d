@@ -73,6 +73,10 @@ add_library(src
 	src/camera.h
 	src/transform.cpp
 	src/transform.h
+	src/mesh.cpp
+	src/mesh.h
+	src/model.cpp
+	src/model.h
 )
 
 # Demo

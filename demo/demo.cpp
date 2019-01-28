@@ -5,6 +5,7 @@
 #include "src/shader.h"
 #include "src/stb_image.h"
 #include "src/camera.h"
+#include "src/model.h"
 #include "src/vectorx.h"
 
 
@@ -30,18 +31,21 @@ int main()
 	glfwSetCursorPosCallback(renderer.window, mouse_callback);
 	glfwSetScrollCallback(renderer.window, scroll_callback);
 
-	Shader demoShader("../src/shaders/transformShader.vs", "../src/shaders/sample.fs");
+	Shader ourShader("shaders/modelloading.vs", "shaders/modelloading.fs");
+	Model ourModel("assets/nanosuit.obj");
 
-	renderer.CreateCubes(demoShader);
+	//Shader demoShader("../src/shaders/transformShader.vs", "../src/shaders/sample.fs");
+
+	//renderer.CreateCubes(demoShader);
 
 	// Texture 1
-	Texture sampleTex("assets/container.png");
+	//Texture sampleTex("assets/container.png");
 	// Texture 2
-	Texture awesomeFace("assets/awesomeface.png");
+	//Texture awesomeFace("assets/awesomeface.png");
 	
-	demoShader.use();
-	glUniform1i(glGetUniformLocation(demoShader.ID, "texture1"), 0);
-	demoShader.setInt("texture2", 1);
+	//demoShader.use();
+	//glUniform1i(glGetUniformLocation(demoShader.ID, "texture1"), 0);
+	//demoShader.setInt("texture2", 1);
 
 	
 
@@ -62,6 +66,7 @@ int main()
 		renderer.ClearWindow();
 
 		// bind textures on corresponding texture units
+		/*
 		glActiveTexture(GL_TEXTURE0);
 		glBindTexture(GL_TEXTURE_2D, sampleTex.textureid);
 		glActiveTexture(GL_TEXTURE1);
@@ -69,24 +74,31 @@ int main()
 
 		// Activate Shader
 		demoShader.use();
+		*/
 
 		// Create Transformations
-		glm::mat4 view;
-		glm::mat4 projection;
+		
 		
 		//model = glm::rotate(model, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
-		
-		projection = glm::perspective(glm::radians(camera.Zoom), (float)SWIDTH / (float)SHEIGHT, 0.1f, 100.0f);
-		demoShader.setMat4("projection", projection);
+		ourShader.use();
 
-		view = camera.GetViewMatrix();
-		demoShader.setMat4("view", view);
+		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SWIDTH / (float)SHEIGHT, 0.1f, 100.0f);
+		glm::mat4 view = camera.GetViewMatrix();
+		ourShader.setMat4("projection", projection);
+		ourShader.setMat4("view", view);
 
-		renderer.DrawCubes(demoShader);
+		// render the loaded model
+		glm::mat4 model = glm::mat4(1.0f);
+		model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f)); // translate it down so it's at the center of the scene
+		model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));	// it's a bit too big for our scene, so scale it down
+		ourShader.setMat4("model", model);
+		ourModel.Draw(ourShader);
+
+		//renderer.DrawCubes(demoShader);
 
 		// retrieve the matrix uniform locations
-		unsigned int modelLoc = glGetUniformLocation(demoShader.ID, "model");
-		unsigned int viewLoc = glGetUniformLocation(demoShader.ID, "view");
+		//unsigned int modelLoc = glGetUniformLocation(demoShader.ID, "model");
+		//unsigned int viewLoc = glGetUniformLocation(demoShader.ID, "view");
 
 		
 
