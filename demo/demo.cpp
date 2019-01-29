@@ -8,10 +8,14 @@
 #include "src/model.h"
 #include "src/vectorx.h"
 
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
 
 void mouse_callback(GLFWwindow* window, double xpos, double ypos);
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
-void processInput(GLFWwindow *window, Camera camera);
+void processInput(GLFWwindow *window);
 
 // Camera
 Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
@@ -27,12 +31,17 @@ int main()
 {
 	Renderer renderer;
 	
-
+	glfwMakeContextCurrent(renderer.window);
 	glfwSetCursorPosCallback(renderer.window, mouse_callback);
 	glfwSetScrollCallback(renderer.window, scroll_callback);
 
+	glfwSetInputMode(renderer.window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+
+
+	glEnable(GL_DEPTH_TEST);
+
 	Shader ourShader("shaders/modelloading.vs", "shaders/modelloading.fs");
-	Model ourModel("assets/nanosuit.obj");
+	Model ourModel("assets/models/lambo/Lamborghini_Aventador.obj");
 
 	//Shader demoShader("../src/shaders/transformShader.vs", "../src/shaders/sample.fs");
 
@@ -42,7 +51,7 @@ int main()
 	//Texture sampleTex("assets/container.png");
 	// Texture 2
 	//Texture awesomeFace("assets/awesomeface.png");
-	
+
 	//demoShader.use();
 	//glUniform1i(glGetUniformLocation(demoShader.ID, "texture1"), 0);
 	//demoShader.setInt("texture2", 1);
@@ -58,7 +67,7 @@ int main()
 
 		// ---------- Input ----------
 		
-		processInput(renderer.window, camera);
+		processInput(renderer.window);
 
 
 		// ---------- Render ----------
@@ -77,7 +86,6 @@ int main()
 		*/
 
 		// Create Transformations
-		
 		
 		//model = glm::rotate(model, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
 		ourShader.use();
@@ -114,19 +122,19 @@ int main()
 	return 0;
 }
 
- void processInput(GLFWwindow *window, Camera cam)
+ void processInput(GLFWwindow *window)
 {
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
 
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-		cam.ProcessKeyboard(FORWARD, deltaTime);
+		camera.ProcessKeyboard(FORWARD, deltaTime);
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-		cam.ProcessKeyboard(BACKWARD, deltaTime);
+		camera.ProcessKeyboard(BACKWARD, deltaTime);
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-		cam.ProcessKeyboard(LEFT, deltaTime);
+		camera.ProcessKeyboard(LEFT, deltaTime);
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-		cam.ProcessKeyboard(RIGHT, deltaTime);
+		camera.ProcessKeyboard(RIGHT, deltaTime);
 }
 
  // glfw: whenever the mouse moves, this callback is called

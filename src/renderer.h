@@ -45,7 +45,7 @@ class Renderer
 		* @param window
 		* GLFWwindow to get input from
 		*/
-		void processInput(GLFWwindow* window);
+		//void processInput(GLFWwindow* window, Camera cam);
 
 		/**
 		* @brief Create Cubes with the given shader
