@@ -10,9 +10,9 @@ Renderer::Renderer()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	#ifdef __APPLE__
+#ifdef __APPLE__
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // uncomment this statement to fix compilation on OS X
-	#endif
+#endif
 
 	if (FULLSCREEN)
 	{
@@ -45,27 +45,6 @@ Renderer::~Renderer()
 {
 
 }
-
-
-/*
-void Renderer::processInput(GLFWwindow *window, Camera cam)
-{
-	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
-		glfwSetWindowShouldClose(window, true);
-	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-	{
-		cam.ProcessKeyboard(FORWARD, deltaTime);
-		std::cout << "MOVE FORWARD" << std::endl;
-	}
-		
-	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-		cam.ProcessKeyboard(BACKWARD, deltaTime);
-	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-		cam.ProcessKeyboard(LEFT, deltaTime);
-	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-		cam.ProcessKeyboard(RIGHT, deltaTime);
-}
-*/
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
