@@ -47,12 +47,25 @@ Renderer::~Renderer()
 }
 
 
-void Renderer::processInput(GLFWwindow *window)
+/*
+void Renderer::processInput(GLFWwindow *window, Camera cam)
 {
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
-
+	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
+	{
+		cam.ProcessKeyboard(FORWARD, deltaTime);
+		std::cout << "MOVE FORWARD" << std::endl;
+	}
+		
+	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
+		cam.ProcessKeyboard(BACKWARD, deltaTime);
+	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
+		cam.ProcessKeyboard(LEFT, deltaTime);
+	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
+		cam.ProcessKeyboard(RIGHT, deltaTime);
 }
+*/
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {

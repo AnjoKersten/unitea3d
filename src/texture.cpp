@@ -2,6 +2,10 @@
  
 Texture::Texture(const char *filePath)
 {
+
+	//path = "";
+	path = filePath;
+
 	glGenTextures(1, &textureid);
 	glBindTexture(GL_TEXTURE_2D, textureid);
 	// set the texture wrapping/filtering options (on the currently bound texture object)

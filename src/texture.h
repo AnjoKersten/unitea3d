@@ -14,12 +14,20 @@
 #include "src/stb_image.h"
 #include "src/shader.h"
 
+#include <string>
+
 /**
  * @brief Texture class lets you put textures on objects
  */
 class Texture
 {
 public:
+
+	// texture's type
+	std::string type;
+
+	// texture file's path
+	std::string path;
 	/**
 	 * @brief Default Transform constructor
 	 * @param filePath
@@ -41,6 +49,8 @@ public:
 	 * @brief A unique ID every texture has
 	 */
 	unsigned int textureid;
+
+	
 
 private:
 	int width, height, nrChannels;
