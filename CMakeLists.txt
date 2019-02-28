@@ -77,6 +77,8 @@ add_library(src
 	src/mesh.h
 	src/model.cpp
 	src/model.h
+	src/light.cpp
+	src/light.h
 )
 
 # Demo
