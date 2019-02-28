@@ -40,23 +40,24 @@ int main()
 
 	glEnable(GL_DEPTH_TEST);
 
-	Shader ourShader("shaders/modelloading.vs", "shaders/modelloading.fs");
-	Model ourModel("assets/models/lambo/Lamborghini_Aventador.obj");
+	// lightShader
+	Shader lightShader("shaders/light_caster.vs", "shaders/light_caster.fs");
+	// lampShader
+	Shader modelShader("shaders/modelloading.vs", "shaders/modelloading.fs");
 
-	//Shader demoShader("../src/shaders/transformShader.vs", "../src/shaders/sample.fs");
+	Model carModel("assets/models/lambo/Lamborghini_Aventador.obj");
 
-	//renderer.CreateCubes(demoShader);
 
-	// Texture 1
-	//Texture sampleTex("assets/container.png");
-	// Texture 2
-	//Texture awesomeFace("assets/awesomeface.png");
+	unsigned int lightVAO;
+	glGenVertexArrays(1, &lightVAO);
+	glBindVertexArray(lightVAO);
 
-	//demoShader.use();
-	//glUniform1i(glGetUniformLocation(demoShader.ID, "texture1"), 0);
-	//demoShader.setInt("texture2", 1);
+	Texture diffuseMap("assets/models/lambo/lambo_diffuse.jpeg");
+	Texture specularMap("assets/models/lambo/lambo_spec.jpeg");
 
-	
+	lightShader.use();
+	lightShader.setInt("material.diffuse", 0);
+	lightShader.setInt("material.specular", 1);
 
 	while (!glfwWindowShouldClose(renderer.window))
 	{
@@ -74,33 +75,31 @@ int main()
 		// Clear window
 		renderer.ClearWindow();
 
-		// bind textures on corresponding texture units
-		/*
-		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, sampleTex.textureid);
-		glActiveTexture(GL_TEXTURE1);
-		glBindTexture(GL_TEXTURE_2D, awesomeFace.textureid);
+		// Activate Lighting Shaders
+		lightShader.use();
+		lightShader.setVec3("light.direction", -0.2f, -1.0f, -0.3f);
+		lightShader.setVec3("viewPos", camera.Position);
 
-		// Activate Shader
-		demoShader.use();
-		*/
-
-		// Create Transformations
+		lightShader.setVec3("light.ambient", 0.2f, 0.2f, 0.2f);
+		lightShader.setVec3("light.diffuse", 0.5f, 0.5f, 0.5f);
+		lightShader.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
 		
-		//model = glm::rotate(model, (float)glfwGetTime() * glm::radians(50.0f), glm::vec3(0.5f, 1.0f, 0.0f));
-		ourShader.use();
+
+		lightShader.setFloat("material.shininess", 32.0f);
+
+		//modelShader.use();
 
 		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SWIDTH / (float)SHEIGHT, 0.1f, 100.0f);
 		glm::mat4 view = camera.GetViewMatrix();
-		ourShader.setMat4("projection", projection);
-		ourShader.setMat4("view", view);
+		lightShader.setMat4("projection", projection);
+		lightShader.setMat4("view", view);
 
 		// render the loaded model
 		glm::mat4 model = glm::mat4(1.0f);
 		model = glm::translate(model, glm::vec3(0.0f, -1.75f, 0.0f)); // translate it down so it's at the center of the scene
 		model = glm::scale(model, glm::vec3(0.2f, 0.2f, 0.2f));	// it's a bit too big for our scene, so scale it down
-		ourShader.setMat4("model", model);
-		ourModel.Draw(ourShader);
+		lightShader.setMat4("model", model);
+		carModel.Draw(lightShader);
 
 		//renderer.DrawCubes(demoShader);
 
