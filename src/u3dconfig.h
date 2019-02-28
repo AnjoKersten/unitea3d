@@ -12,10 +12,10 @@
 
 
 /** @brief Width of screen in pixels */
-#define SWIDTH 800
+#define SWIDTH 1280
 
 /** @brief Height of screen in pixels */
-#define SHEIGHT 600
+#define SHEIGHT 720
 
 /** @brief Fullscreen: OFF = 0 | ON = 1 */
 #define FULLSCREEN 0
