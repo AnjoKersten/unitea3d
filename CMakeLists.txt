@@ -79,6 +79,8 @@ add_library(src
 	src/model.h
 	src/light.cpp
 	src/light.h
+	src/entity.cpp
+	src/entity.h
 )
 
 # Demo

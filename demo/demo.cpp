@@ -8,6 +8,7 @@
 #include "src/camera.h"
 #include "src/model.h"
 #include "src/light.h"
+#include "src/entity.h"
 #include "src/vectorx.h"
 
 #include <glm/glm.hpp>
@@ -27,41 +28,32 @@ bool firstMouse = true;
 
 // Timing
 float deltaTime = 0.0f;	// Time between current frame and last frame
-float lastFrame = 0.0f;
+float lastFrame = 0.0f; // Last frame put on the screen
 
 int main()
 {
-	Renderer renderer;
+	Renderer renderer; // Create a renderer
 
+	// ------------ GLFW STUFF --------------------
 	glfwMakeContextCurrent(renderer.window);
 	glfwSetCursorPosCallback(renderer.window, mouse_callback);
 	glfwSetScrollCallback(renderer.window, scroll_callback);
-
 	glfwSetInputMode(renderer.window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
-
-
 	glEnable(GL_DEPTH_TEST);
+	// --------------------------------------------
+
 
 	// lightShader
 	Shader lightShader("shaders/light_caster.vs", "shaders/light_caster.fs");
 
 	Model carModel("assets/models/lambo/Lamborghini_Aventador.obj");
+	//Model spaceshipModel("assets/models/spaceship/spaceship.obj");
 	
 	Light directionalLight(DIRECTIONAL_LIGHT, lightShader);
 
-	/*
-	unsigned int lightVAO;
-	glGenVertexArrays(1, &lightVAO);
-	glBindVertexArray(lightVAO);
-	*/
 
-	directionalLight.SetDiffuseMap("assets/models/lambo/lambo_diffuse.jpeg");
-	directionalLight.SetSpecularMap("assets/models/lambo/lambo_spec.jpeg");
-
-	directionalLight.lightShader.use();
-	//lightShader.setInt("material.diffuse", 0);
-	//lightShader.setInt("material.specular", 1);
-
+	Entity car; // Create new entity
+	car.position = glm::vec3(0.0f, -6.0f, -12.0f); // Set entities position in the world
 
 	while (!glfwWindowShouldClose(renderer.window))
 	{
@@ -70,14 +62,13 @@ int main()
 		deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
 
-		// ---------- Input ----------
+		// Input for window
 		processInput(renderer.window);
 
 		// Clear window
 		renderer.ClearWindow();
 
-		// Activate Lighting Shaders
-		
+		// Update Lighting Shaders relative to camera
 		directionalLight.UpdateLight(camera);
 
 		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom), (float)SWIDTH / (float)SHEIGHT, 0.1f, 100.0f);
@@ -85,12 +76,10 @@ int main()
 		directionalLight.lightShader.setMat4("projection", projection);
 		directionalLight.lightShader.setMat4("view", view);
 
-		// render the loaded model
-		glm::mat4 model = glm::mat4(1.0f);
-		model = glm::translate(model, glm::vec3(0.0f, -8.0f, -16.0f)); // translate it down so it's at the center of the scene
-		model = glm::scale(model, glm::vec3(0.05f, 0.05f, 0.05f));	// it's a bit too big for our scene, so scale it down
-		directionalLight.lightShader.setMat4("model", model);
+		// Calculate Model relative to camera each frame
+		car.LinkModel(carModel);
 		carModel.Draw(directionalLight.lightShader);
+		
 
 		glfwSwapBuffers(renderer.window);
 		glfwPollEvents();
@@ -102,22 +91,23 @@ int main()
 
 void processInput(GLFWwindow *window)
 {
+	// Quit and close window
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
 
-	// FORWARD
+	// Forward = W
 	if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
 		camera.ProcessKeyboard(FORWARD, deltaTime);
-	// BACKWARD
+	// Backward = S
 	if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
 		camera.ProcessKeyboard(BACKWARD, deltaTime);
-	// LEFT
+	// Left = A
 	if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
 		camera.ProcessKeyboard(LEFT, deltaTime);
-	// RIGHT
+	// Right = D
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 		camera.ProcessKeyboard(RIGHT, deltaTime);
-	// SPRINT
+	// Sprint = LShift + DirectionKey
 	if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
 		camera.ProcessKeyboard(SPRINT, deltaTime);
 }
@@ -134,7 +124,7 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 	}
 
 	float xoffset = xpos - lastX;
-	float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
+	float yoffset = lastY - ypos;
 
 	lastX = xpos;
 	lastY = ypos;

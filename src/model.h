@@ -32,6 +32,7 @@ public:
 	Model(std::string const &path, bool gamma = false);
 
 	void Draw(Shader shader);
+	Shader usedShader;
 
 private:
 

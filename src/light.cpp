@@ -44,9 +44,5 @@ void Light::UpdateLight(Camera camera)
 
 		lightShader.setFloat("material.shininess", 32.0f);
 	}
-	else
-	{
-		// do nothing...
-	}
 	
 }
